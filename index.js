@@ -156,5 +156,4 @@ app.listen(PORT, () => {
   console.log(`Our blog app is listening to port ${PORT}`);
 });
 
-// mongodb+srv://mernblog:78sc92j5ruWAn2R3@cluster0.sfqglpn.mongodb.net/
   
