@@ -67,6 +67,10 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/ankush",(req,res)=>{
+  res.send("hello we are present here");
+})
+
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
