@@ -24,9 +24,12 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const PORT = process.env.PORT||4000;
 
-mongoose.connect(
-  process.env.CONNECTION_URL
-);
+mongoose.connect(process.env.CONNECTION_URL).then(()=>{
+  console.log('Db connection is Successful')
+}).catch((e)=>{
+  console.log(e.message)
+})
+
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
@@ -41,6 +44,7 @@ app.post("/register", async (req, res) => {
     res.status(400).json(e);
   }
 });
+
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -80,7 +84,7 @@ app.get("/profile", (req, res) => {
 });  
  
 app.post('/logout', (req,res) => {
-  res.cookie('token', '').json('ok');
+  res.cookie('token', null).json('ok');
 });
 
 app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
