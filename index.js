@@ -16,7 +16,7 @@ const salt = bcrypt.genSaltSync(10);
 const secret = process.env.SECRET_KEY; 
 const BASE_URL = process.env.BASE_URL;
 
-app.use(cors({ credentials: true, origin: `${BASE_URL}` }));
+app.use(cors({ credentials: true, origin: `${BASE_URL}`, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -76,6 +76,8 @@ app.get("/ankush",(req,res)=>{
 })
 
 app.get("/profile", (req, res) => {
+  res.header('Access-Control-Allow-Origin', `${BASE_URL}`);
+  res.header('Access-Control-Allow-Credentials', 'true');
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
